@@ -30,7 +30,7 @@ module Cocoapods
         swift_package_results = {}
 
         swift_packages.each do |product_name|
-          packages = plugin_config["packages"].select { |p| p["products"].any? { _1["name"] == product_name } }
+          packages = plugin_config["packages"].select { |p| p["products"].any? { |pd| pd["name"] == product_name } }
           if packages.size != 1
             raise Pod::Informative,
               "Couldnt find package for #{product_name} in #{plugin_config["packages"]}"
