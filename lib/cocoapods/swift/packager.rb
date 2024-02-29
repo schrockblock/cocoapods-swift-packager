@@ -38,19 +38,19 @@ module Cocoapods
 
           package = packages[0]
 
-          package_ref = project.new(Xcodeproj::Project::XCRemoteSwiftPackageReference).tap do
-            _1.repositoryURL = package["repositoryURL"]
-            _1.requirement = package["requirement"]
+          package_ref = project.new(Xcodeproj::Project::XCRemoteSwiftPackageReference).tap do |ref|
+            ref.repositoryURL = package["repositoryURL"]
+            ref.requirement = package["requirement"]
           end
           project.root_object.package_references << package_ref
 
-          package_product_dependency = project.new(Xcodeproj::Project::XCSwiftPackageProductDependency).tap do
-            _1.package = package_ref
-            _1.product_name = product_name
+          package_product_dependency = project.new(Xcodeproj::Project::XCSwiftPackageProductDependency).tap do |pr|
+            pr.package = package_ref
+            pr.product_name = product_name
           end
 
-          build_file = project.new(Xcodeproj::Project::PBXBuildFile).tap do
-            _1.product_ref = package_product_dependency
+          build_file = project.new(Xcodeproj::Project::PBXBuildFile).tap do |f|
+            f.product_ref = package_product_dependency
           end
 
           swift_package_results[product_name] = build_file
